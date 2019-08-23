@@ -19,4 +19,12 @@ public class EmployeeService {
 		return dao.getEmployees();
 	}
 	
+	public Employee getEmployeeById(int id){
+		
+		return dao.getEmployeeById(id);
+	}
+	
+	public void insertEmployee(Employee emp){
+		dao.insertEmployee(emp);
+	}
 }

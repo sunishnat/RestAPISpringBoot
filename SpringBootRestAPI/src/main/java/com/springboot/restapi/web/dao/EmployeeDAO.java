@@ -40,4 +40,40 @@ public class EmployeeDAO {
 		
 		return employees;
 	}
+	
+	public Employee getEmployeeById(int id){
+		con = DBConnection.getSQLConnection();
+		Employee emp = new Employee();
+		String query = "select * from employee where eid = ?";
+		try {
+			pst = con.prepareStatement(query);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			emp.setEid(id);
+			while(rs.next()){
+				emp.setEname(rs.getString(2));
+				emp.setTech(rs.getString(3));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return emp;
+	}
+	
+	public void insertEmployee(Employee employee){
+		con = DBConnection.getSQLConnection();
+		String query = "insert into employee values(?, ?, ?)";
+		try {
+			pst = con.prepareStatement(query);
+			pst.setInt(1, employee.getEid());
+			pst.setString(2, employee.getEname());
+			pst.setString(3, employee.getTech());
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
